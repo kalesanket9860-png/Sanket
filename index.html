@@ -1,143 +1,75 @@
-<?php
-// PHP reserved for future features (login, validation, reports)
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>FY Electrical L2 – Daily Study Tracker</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #e0eafc, #cfdef3);
-  padding: 20px;
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(135deg,#e0eafc,#cfdef3);
+  padding:20px
 }
-
-.container {
-  max-width: 1000px;
-  margin: auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-  animation: fadeIn 0.6s ease-in-out;
+.container{
+  max-width:1000px;
+  margin:auto;
+  background:#fff;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,.15)
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+h2{
+  text-align:center;
+  background:linear-gradient(90deg,#1f3c88,#3f72af);
+  color:#fff;
+  padding:15px;
+  border-radius:12px
 }
-
-h2 {
-  text-align: center;
-  color: #ffffff;
-  background: linear-gradient(90deg, #1f3c88, #3f72af);
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 25px;
+input[type=date]{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc
 }
-
-label {
-  font-weight: 500;
-  color: #333;
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px
 }
-
-input[type="date"] {
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+th,td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:center
 }
-
-input[type="date"]:focus {
-  outline: none;
-  border-color: #1f3c88;
+th{
+  background:#1f3c88;
+  color:#fff
 }
-
-p {
-  margin-top: 10px;
-  font-size: 15px;
+tr:nth-child(even) td{background:#eef3ff}
+input[type=text]{
+  width:95%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ccc
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  border-radius: 12px;
-  overflow: hidden;
+button{
+  margin-top:25px;
+  padding:14px 35px;
+  background:linear-gradient(90deg,#1f3c88,#3f72af);
+  color:white;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  display:block;
+  margin:auto
 }
-
-th {
-  background: #1f3c88;
-  color: white;
-  padding: 12px;
-  font-weight: 500;
-}
-
-td {
-  padding: 10px;
-  background: #f9fbff;
-}
-
-tr:nth-child(even) td {
-  background: #eef3ff;
-}
-
-tr:hover td {
-  background: #dde7ff;
-  transition: 0.3s;
-}
-
-th, td {
-  border: 1px solid #d0d7e2;
-  text-align: center;
-}
-
-input[type="text"] {
-  width: 95%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 13px;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  border-color: #3f72af;
-  background: #f0f6ff;
-}
-
-button {
-  margin-top: 25px;
-  padding: 14px 35px;
-  background: linear-gradient(90deg, #1f3c88, #3f72af);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 8px 20px rgba(31,60,136,0.3);
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(31,60,136,0.4);
-  transition: 0.3s;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 18px;
-  font-size: 13px;
-  color: #666;
+.footer{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  color:#666
 }
 </style>
 </head>
@@ -145,144 +77,113 @@ button:hover {
 <body>
 
 <div class="container">
-  <h2>FY Electrical (L2 Batch) – Daily Study Report</h2>
+<h2>FY Electrical (L2 Batch) – Daily Study Report</h2>
 
-  <label>📅 Select Date</label><br>
-  <input type="date" id="date" onchange="loadTimetable()">
+<label>Select Date:</label><br>
+<input type="date" id="date" onchange="loadTimetable()">
 
-  <p><b>🗓 Day:</b> <span id="day"></span></p>
+<p><b>Day:</b> <span id="day"></span></p>
 
-  <table id="studyTable">
-    <tr>
-      <th>Time</th>
-      <th>Subject</th>
-      <th>College Study</th>
-      <th>Home Study</th>
-    </tr>
-  </table>
+<table id="studyTable">
+<tr>
+<th>Time</th>
+<th>Subject</th>
+<th>College Study</th>
+<th>Home Study</th>
+</tr>
+</table>
 
-  <button onclick="submitData()">Submit Daily Report</button>
+<button onclick="submitData()">Submit Daily Report</button>
 
-  <div class="footer">
-    Auto-saved to Excel | Guardian View Enabled
-  </div>
+<div class="footer">Auto saved to Excel | Guardian can view</div>
 </div>
 
 <script>
-// =====================
-// L2 BATCH TIMETABLE
-// =====================
-const timetable = {
-
-  "Monday": [
-    { time: "10:30–12:30", subject: "EPL – L2 (Engineering Physics Lab)" },
-    { time: "01:10–02:05", subject: "CCA" },
-    { time: "02:05–03:00", subject: "CCA" },
-    { time: "03:20–04:15", subject: "Engineering Mathematics-II" },
-    { time: "04:15–05:10", subject: "Electrical Technology" }
-  ],
-
-  "Tuesday": [
-    { time: "10:30–11:30", subject: "Engineering Physics" },
-    { time: "11:30–12:30", subject: "Elements of Electrical Engineering" },
-    { time: "01:10–03:00", subject: "EM-II – L2 (Tutorial/Lab)" },
-    { time: "03:20–04:15", subject: "Elements of Electrical Engineering" },
-    { time: "04:15–05:10", subject: "OFF Lecture" }
-  ],
-
-  "Wednesday": [
-    { time: "10:30–11:30", subject: "Engineering Mathematics-II" },
-    { time: "11:30–12:30", subject: "Electrical Technology" },
-    { time: "01:10–03:00", subject: "ETL – L2 (Electrical Technology Lab)" },
-    { time: "03:20–04:15", subject: "Engineering Physics" },
-    { time: "04:15–05:10", subject: "IKS" }
-  ],
-
-  "Thursday": [
-    { time: "10:30–11:30", subject: "Electrical Technology" },
-    { time: "11:30–12:30", subject: "Professional English" },
-    { time: "01:10–02:05", subject: "Engineering Physics" },
-    { time: "02:05–03:00", subject: "Engineering Mathematics-II" },
-    { time: "03:20–05:15", subject: "Electrical Graphics Lab" }
-  ],
-
-  "Friday": [
-    { time: "10:30–12:30", subject: "EEEL (Elements of Electrical Engineering)" },
-    { time: "01:10–03:00", subject: "IEESL – L2 (Intro to EE Software Lab)" },
-    { time: "03:20–04:15", subject: "Professional English" },
-    { time: "04:15–05:10", subject: "History" }
-  ],
-
-  "Saturday": [
-    { time: "10:30–12:30", subject: "Experiential Learning" },
-    { time: "01:10–02:05", subject: "Mentor Meeting" },
-    { time: "03:20–05:10", subject: "Experiential Learning" }
-  ]
+const timetable={
+"Monday":[
+{time:"10:30–12:30",subject:"Engineering Physics Lab"},
+{time:"01:10–02:05",subject:"CCA"},
+{time:"02:05–03:00",subject:"CCA"},
+{time:"03:20–04:15",subject:"Engineering Mathematics-II"},
+{time:"04:15–05:10",subject:"Electrical Technology"}
+],
+"Tuesday":[
+{time:"10:30–11:30",subject:"Engineering Physics"},
+{time:"11:30–12:30",subject:"Elements of Electrical Engineering"},
+{time:"01:10–03:00",subject:"EM-II Tutorial/Lab"},
+{time:"03:20–04:15",subject:"Elements of Electrical Engineering"}
+],
+"Wednesday":[
+{time:"10:30–11:30",subject:"Engineering Mathematics-II"},
+{time:"11:30–12:30",subject:"Electrical Technology"},
+{time:"01:10–03:00",subject:"Electrical Technology Lab"},
+{time:"03:20–04:15",subject:"Engineering Physics"},
+{time:"04:15–05:10",subject:"IKS"}
+],
+"Thursday":[
+{time:"10:30–11:30",subject:"Electrical Technology"},
+{time:"11:30–12:30",subject:"Professional English"},
+{time:"01:10–02:05",subject:"Engineering Physics"},
+{time:"02:05–03:00",subject:"Engineering Mathematics-II"},
+{time:"03:20–05:15",subject:"Electrical Graphics Lab"}
+],
+"Friday":[
+{time:"10:30–12:30",subject:"EEEL"},
+{time:"01:10–03:00",subject:"IEESL Software Lab"},
+{time:"03:20–04:15",subject:"Professional English"},
+{time:"04:15–05:10",subject:"History"}
+],
+"Saturday":[
+{time:"10:30–12:30",subject:"Experiential Learning"},
+{time:"01:10–02:05",subject:"Mentor Meeting"},
+{time:"03:20–05:10",subject:"Experiential Learning"}
+]
 };
 
-// =====================
-// LOAD TIMETABLE
-// =====================
-function loadTimetable() {
-  const dateValue = document.getElementById("date").value;
-  if (!dateValue) return;
-
-  const dayName = new Date(dateValue)
-    .toLocaleDateString("en-US", { weekday: "long" });
-
-  document.getElementById("day").innerText = dayName;
-
-  const table = document.getElementById("studyTable");
-  table.innerHTML = `
-    <tr>
-      <th>Time</th>
-      <th>Subject</th>
-      <th>College Study</th>
-      <th>Home Study</th>
-    </tr>
-  `;
-
-  (timetable[dayName] || []).forEach(row => {
-    table.innerHTML += `
-      <tr>
-        <td>${row.time}</td>
-        <td>${row.subject}</td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-      </tr>
-    `;
-  });
+function loadTimetable(){
+const d=document.getElementById("date").value;
+if(!d)return;
+const day=new Date(d).toLocaleDateString("en-US",{weekday:"long"});
+document.getElementById("day").innerText=day;
+const table=document.getElementById("studyTable");
+table.innerHTML=`<tr><th>Time</th><th>Subject</th><th>College Study</th><th>Home Study</th></tr>`;
+(timetable[day]||[]).forEach(r=>{
+table.innerHTML+=`<tr>
+<td>${r.time}</td>
+<td>${r.subject}</td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+</tr>`;
+});
 }
 
-// =====================
-// SUBMIT DATA
-// =====================
-function submitData() {
-  const rows = document.querySelectorAll("#studyTable tr");
-  let entries = [];
+function submitData(){
+const rows=document.querySelectorAll("#studyTable tr");
+let entries=[];
+for(let i=1;i<rows.length;i++){
+const c=rows[i].children;
+entries.push({
+time:c[0].innerText,
+subject:c[1].innerText,
+college:c[2].children[0].value,
+home:c[3].children[0].value
+});
+}
 
-  for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].children;
-    entries.push({
-      time: cells[0].innerText,
-      subject: cells[1].innerText,
-      college: cells[2].children[0].value,
-      home: cells[3].children[0].value
-    });
-  }
-
-  fetch("https://docs.google.com/spreadsheets/d/1yOyFzkAlwWfKmCNgCCpcKSKtbIxkRcrOGiG8WYMydkc/edit?gid=0#gid=0"), {
-    method: "POST",
-    body: JSON.stringify({
-      date: document.getElementById("date").value,
-      day: document.getElementById("day").innerText,
-      entries: entries
-    })
-  })
-  .then(() => alert("✅ Daily report saved successfully"))
-  .catch(() => alert("❌ Error saving data"));
+fetch("PASTE_GOOGLE_SCRIPT_URL_HERE",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+date:document.getElementById("date").value,
+day:document.getElementById("day").innerText,
+entries:entries
+})
+})
+.then(()=>alert("✅ Saved Successfully"))
+.catch(()=>alert("❌ Error"));
 }
 </script>
 
 </body>
 </html>
+
